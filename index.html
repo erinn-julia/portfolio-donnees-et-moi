@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portfolio d’Erinn-Julia Dupuy, étudiante en BUT Informatique parcours AGED : data, monitoring, web.">
+<title>Erinn-Julia Dupuy — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div id="bar"></div>
+<header class="top"><div class="wrap">
+  <a class="name" href="#top">Erinn-Julia Dupuy</a>
+  <nav>
+    <a href="#moi">Moi</a><a href="#lab">Data lab</a><a href="#jeu">Jeu</a><a href="#projets">Projets</a><a href="#skills">Compétences</a><a href="#site">Ce site</a><a href="#hors-ecran">Hors écran</a><a href="#contact">Contact</a>
+    <button id="theme-toggle" type="button" aria-label="Basculer le thème clair/sombre">◐</button>
+  </nav>
+</div></header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="kicker">Salut, moi c'est</p>
+    <canvas id="bg" class="namecv" role="img" aria-label="Erinn-Julia Dupuy"></canvas>
+    <p class="hint">Ce sont des points de données : passez la souris dessus, ou cliquez pour tout disperser.</p>
+    <h1>Étudiante en informatique, <span id="typewriter" class="tw"></span></h1>
+    <p class="role">BUT Informatique, parcours AGED — IUT de Créteil-Vitry / UPEC</p>
+    <p class="pitch"><strong>Je cherche un stage à partir du 8 mars 2027</strong>, dans l’informatique au sens large, avec un faible assumé pour la donnée.</p>
+    <a class="btn" href="documents/CV_Erinn-Julia_Dupuy.pdf" download>Télécharger mon CV</a>
+    <a class="btn ghost" href="#lab">Jouer avec la data ↓</a>
+  </div>
+  <div class="wrap stats">
+    <div><b data-n="13" data-k="p">0</b><span>projets présentés</span></div>
+    <div><b data-n="3">0</b><span>mois de stage en Malaisie</span></div>
+    <div><b data-n="5" data-k="l">0</b><span>langages utilisés</span></div>
+    <div><b data-n="1">0</b><span>major de promo au Bac STMG</span></div>
+  </div>
+</section>
+
+<section id="moi">
+  <div class="wrap">
+    <h2>Moi, en quelques lignes</h2>
+    <p class="sub">Un parcours, pas une liste de mots-clés.</p>
+    <div class="two">
+      <div class="about">
+        <p>Je suis en 3ᵉ année de BUT Informatique, parcours Administration, Gestion et Exploitation des Données (AGED), à l’IUT de Créteil-Vitry. Ce qui m’attire dans la donnée : la transformer en quelque chose qu’on peut lire, interroger et surveiller, d’une API brute jusqu’à une carte ou un tableau de bord.</p>
+        <p>J’aime aussi automatiser. Au fil de plusieurs projets, j’ai automatisé la qualité des données, leur importation et des morceaux de pipeline, pour que tout tourne sans refaire les mêmes gestes à la main.</p>
+        <p>Mon stage en Malaisie m’a confirmé mon goût pour le monitoring et la fiabilité des données, mais j’aime aussi le web, les bases de données et les réseaux : je suis curieuse de tout ce que le numérique peut couvrir, y compris l’IA.</p>
+        <p>Ce que je cherche maintenant : une première vraie expérience au sein d’un projet. J’ai déjà travaillé sur des projets, mais en faire pleinement partie consoliderait mes compétences. Je suis ouverte à tout.</p>
+      </div>
+      <div class="tl" id="tl"></div>
+    </div>
+  </div>
+</section>
+
+<section id="lab" class="alt">
+  <div class="wrap">
+    <h2>Data lab : fais dériver les données</h2>
+    <p class="sub">Pendant mon stage à l’Universiti Teknologi PETRONAS, je surveillais des données de capteurs pour repérer quand elles « dérivent ». Voici une mini-version : bougez les curseurs et regardez réagir le PSI et le test de Kolmogorov-Smirnov (les deux méthodes que j’ai utilisées).</p>
+    <div class="lab rv">
+      <canvas id="drift" width="640" height="260" aria-label="Histogrammes de référence et de données actuelles"></canvas>
+      <div class="ctl">
+        <label>Décalage de la moyenne <output id="o1"></output><input id="mu" type="range" min="0" max="2" step="0.05" value="0"></label>
+        <label>Dispersion <output id="o2"></output><input id="sd" type="range" min="0.6" max="2" step="0.05" value="1"></label>
+        <div class="meters"><div><span>PSI</span><b id="psi">0</b></div><div><span>KS</span><b id="ks">0</b></div></div>
+        <p id="verdict" class="verdict"></p>
+        <button id="sim" class="btn ghost" type="button">Simuler une dérive</button>
+      </div>
+    </div>
+    <p class="fine">Repères usuels : PSI &lt; 0,1 stable, 0,1 à 0,25 à surveiller, &gt; 0,25 dérive. Seuil KS à 5 % pour 800 points : 0,068. Données simulées.</p>
+  </div>
+</section>
+
+<section id="jeu">
+  <div class="wrap">
+    <h2>Mini-jeu : nettoie le flux</h2>
+    <p class="sub">En stage, j’ai automatisé des contrôles de qualité sur des données de capteurs. Essayez à la main : cliquez sur les lignes sales (valeur manquante, aberrante ou doublon) avant qu’elles entrent dans la pipeline. Puis laissez le script s’en charger.</p>
+    <div class="game rv">
+      <div id="belt" aria-label="Flux de données à nettoyer"></div>
+      <div class="ctl">
+        <div class="meters"><div><span>Qualité du flux</span><b id="gq">100%</b></div><div><span>Lignes nettoyées</span><b id="gc">0</b></div></div>
+        <p id="gs" class="fine"></p>
+        <pre class="code">df = df.drop_duplicates()
+df = df.dropna()
+df = df[df.valeur.between(0, 60)]</pre>
+        <button id="auto" class="btn ghost" type="button" aria-pressed="false">Activer le script</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projets" class="alt">
+  <div class="wrap">
+    <h2>Projets</h2>
+    <p class="sub">Académiques, de stage ou de TP. Plusieurs de mes matières comptaient énormément de TP et de projets de groupe : tous ne sont pas listés. Filtrez par thème, ou cliquez sur un langage plus bas.</p>
+    <div class="chipbar" id="chips"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="site" class="alt">
+  <div class="wrap">
+    <h2>Sous le capot : comment ce site est fait</h2>
+    <p class="sub">Tout est écrit à la main en HTML, CSS et JavaScript, sans framework : un choix voulu, pour maîtriser chaque ligne et comprendre ce qui se passe.</p>
+    <div class="stack">
+      <div class="rv"><h3>HTML</h3><p>La structure : sections, textes, navigation, accessibilité (labels, focus clavier).</p></div>
+      <div class="rv"><h3>CSS</h3><p>Variables de couleurs pour le thème clair/sombre, grilles, adaptation au téléphone, animations coupées si le visiteur préfère moins de mouvement.</p></div>
+      <div class="rv"><h3>JavaScript</h3><p>Tout ce qui bouge. Mon nom est formé de milliers de points dessinés sur un <code>canvas</code> qui fuient la souris. Le Data lab calcule le PSI et le test KS en direct sur 800 points simulés. Le mini-jeu et les filtres de projets tournent aussi en JavaScript.</p></div>
+      <div class="rv"><h3>Une seule liste de données</h3><p>Les cartes de projets, le compteur et le graphique de compétences sont générés à partir d’une même liste : j’ajoute une ligne, tout se met à jour.</p></div>
+    </div>
+    <p class="fine">Les polices viennent de Google Fonts. Aucune autre bibliothèque.</p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Compétences</h2>
+    <p class="sub">Dans combien de mes projets chaque langage apparaît. Cliquez pour filtrer les projets.</p>
+    <div class="rv" id="bars"></div>
+    <div class="skills-groups">
+      <div><h3>Langages</h3><p>Python, PHP, JavaScript, HTML/CSS, C, Java</p></div>
+      <div><h3>Bases de données &amp; formats</h3><p>SQL, MySQL, PostgreSQL, SQLite · JSON, CSV, GeoJSON, NetCDF</p></div>
+      <div><h3>Analyse &amp; visualisation</h3><p>Pandas, NumPy, SciPy, Matplotlib, Streamlit, Power BI (tableaux de bord, modélisation en étoile), Excel (tableaux croisés dynamiques, Power Query, segments)</p></div>
+      <div><h3>Outils</h3><p>VS Code, DBeaver, IntelliJ / Eclipse, phpMyAdmin, Git, Docker</p></div>
+      <div><h3>Microsoft 365</h3><p>Excel, Word, Teams, OneDrive</p></div>
+      <div><h3>Linux</h3><p>Environnement Linux (WSL) au quotidien pendant mon stage en Malaisie</p></div>
+      <div><h3>Langues</h3><p>Anglais B2, Espagnol A2</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="hors-ecran" class="alt">
+  <div class="wrap">
+    <h2>Hors écran</h2>
+    <p class="sub">Ce que je fais quand je ne suis pas devant du code.</p>
+    <div class="tiles">
+      <div class="tile rv big" style="--c:var(--mag)"><i>✺</i><h3>Carnaval caribéen</h3><p>Une tradition qui me tient à cœur : costumes, musique et transmission culturelle. C’est aussi la source des couleurs de ce site.</p></div>
+      <div class="tile rv" style="--c:var(--saf)"><i>✈</i><h3>Voyages</h3><p>Toujours partante pour découvrir un nouvel endroit. La Malaisie en a été un bel exemple.</p></div>
+      <div class="tile rv" style="--c:var(--teal)"><i>♪</i><h3>Musique &amp; concerts</h3><p>J’aime suivre l’actu musicale et aller en concert dès que possible.</p></div>
+      <div class="tile rv" style="--c:var(--ter)"><i>✎</i><h3>Animes &amp; lectures</h3><p>Animation japonaise, romans, webtoons : toujours une histoire en cours.</p></div>
+      <div class="tile rv" style="--c:var(--saf)"><i>◉</i><h3>Jeux vidéo</h3><p>Quelques parties entre amis, souvent sur Roblox, pour décompresser.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>On échange ?</h2>
+    <p class="sub">Un stage dès le 8 mars 2027, une question sur un projet, ou juste un bonjour.</p>
+    <div class="contact-links">
+      <a href="mailto:erinn-julia.dupuy@etu.u-pec.fr">erinn-julia.dupuy@etu.u-pec.fr</a>
+      <a href="https://linkedin.com/in/erinn-julia-dupuy/" target="_blank" rel="noopener">linkedin.com/in/erinn-julia-dupuy</a>
+      <a href="https://github.com/erinn-julia" target="_blank" rel="noopener">github.com/erinn-julia</a>
+    </div>
+    <p class="fine">Erinn-Julia Dupuy — BUT Informatique, parcours AGED, IUT de Créteil-Vitry / UPEC</p>
+  </div>
+</footer>
+</body>
+</html>
